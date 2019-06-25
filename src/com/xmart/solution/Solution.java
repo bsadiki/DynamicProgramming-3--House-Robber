@@ -10,8 +10,13 @@ public class Solution {
         if (n == 1)
             return housesValues[0];
         if (n == 2)
-            return housesValues[1];
-        return Math.max(housesValues[n - 1] + maxRobbed(housesValues, n - 2), maxRobbed(housesValues, n - 1));
+            return Math.max(housesValues[0], housesValues[1]);
+        int[] maxValuesForHouseN = new int[n];
+        maxValuesForHouseN[0] = housesValues[0];
+        maxValuesForHouseN[1] = Math.max(housesValues[0], housesValues[1]);
+        for (int i = 2; i < n; i++) {
+            maxValuesForHouseN[i] = Math.max(housesValues[i] + maxValuesForHouseN[i - 2], maxValuesForHouseN[i - 1]);
+        }
+        return maxValuesForHouseN[n - 1];
     }
-
 }
